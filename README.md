@@ -24,16 +24,16 @@ value fresh, so security contact metadata does not become stale.
 
 ## Why choose this action
 
-- Pure Bash implementation with minimal dependencies.
-- Fast startup: no `npm`/`pip` install step during workflow execution.
-- Lower supply-chain and maintenance overhead: no runtime pinning, lockfiles, or dependency CVEs.
-- Easier security audit: all logic lives in a small, readable script.
-- Covered by automated tests (`./tests/run`) and CI.
+- Pure Bash implementation with minimal dependencies
+- Fast startup: no `npm`/`pip` install step during workflow execution
+- Lower supply-chain and maintenance overhead: no runtime pinning, lockfiles, or dependency CVEs
+- Easier security audit: all logic lives in a small, readable script
+- Covered by automated tests (`./tests/run`) and CI
 - Works on `ubuntu-slim`, which can help reduce runner costs:
-  https://docs.github.com/en/actions/reference/runners/github-hosted-runners
-- Can be used both as a GitHub Action and as a standalone script.
-- Released under the MIT License: a short and simple permissive license.
-- Documented security policy: [SECURITY.md](./SECURITY.md).
+  <https://docs.github.com/en/actions/reference/runners/github-hosted-runners>
+- Can be used both as a GitHub Action and as a standalone script
+- Released under the MIT License: a short and simple permissive license
+- Documented security policy: [SECURITY.md](./SECURITY.md)
 
 ## Getting started
 
@@ -45,11 +45,11 @@ value fresh, so security contact metadata does not become stale.
 
 | Input | Description | Required | Default |
 | --- | --- | --- | --- |
-| `targets` | Space-, comma- or newline-separated directories to scan. | No | `"."` |
-| `exclude_paths` | Space-, comma- or newline-separated paths to exclude. | No | `""` |
-| `expires_days` | Number of days to add to current date. | No | `"180"` |
-| `dry_run` | If `true`, print planned changes without modifying files. | No | `"false"` |
-| `verbose` | If `true`, print detailed logs. | No | `"false"` |
+| `targets` | Space-, comma- or newline-separated directories to scan | No | `"."` |
+| `exclude_paths` | Space-, comma- or newline-separated paths to exclude | No | `""` |
+| `expires_days` | Number of days to add to current date | No | `"180"` |
+| `dry_run` | If `true`, print planned changes without modifying files | No | `"false"` |
+| `verbose` | If `true`, print detailed logs | No | `"false"` |
 
 ## CLI usage
 
@@ -111,11 +111,11 @@ Set `CURRENT_DATE` to make tests deterministic.
 
 ## Limitations
 
-- Uses GNU `sed` options available on `ubuntu-latest` and `ubuntu-slim` runners.
-- Uses GNU `date -d` syntax (Linux/GNU date).
-- Updates only files matching `*/.well-known/security.txt`.
-- Replaces an existing `Expires:` line; it does not add the field if missing.
-- Exclude paths are resolved per target directory; absolute paths are matched as-is.
+- Uses GNU `sed` options available on `ubuntu-latest` and `ubuntu-slim` runners
+- Uses GNU `date -d` syntax (Linux/GNU date)
+- Updates only files matching `*/.well-known/security.txt`
+- Replaces an existing `Expires:` line; it does not add the field if missing
+- Exclude paths are resolved per target directory; absolute paths are matched as-is
 
 ## Example workflow
 
