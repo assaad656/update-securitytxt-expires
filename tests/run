@@ -225,6 +225,50 @@ TXT
   assert_not_contains "${tmp}/skip/.well-known/security.txt" "Expires: 2025-01-11T23:59:59Z"
 }
 
+test_dry_run_does_not_modify_files() {
+  local tmp
+  tmp="$(make_tmp)"
+  mkdir -p "${tmp}/site/.well-known"
+
+  cat <<'TXT' > "${tmp}/site/.well-known/security.txt"
+Expires: 2024-12-01T23:59:59Z
+TXT
+
+  run_and_capture env \
+    CURRENT_DATE=2025-01-01 \
+    DRY_RUN=true \
+    "${UPDATE_SECURITYTXT_EXPIRES}" \
+    --targets "${tmp}" \
+    --expires-days 1
+
+  assert_equal "${CAPTURED_STATUS}" "0"
+  assert_str_contains "${CAPTURED_OUTPUT}" "Mode: dry-run=true, verbose=false"
+  assert_str_contains "${CAPTURED_OUTPUT}" "[DRY-RUN] Would update"
+  assert_contains "${tmp}/site/.well-known/security.txt" "Expires: 2024-12-01T23:59:59Z"
+  assert_not_contains "${tmp}/site/.well-known/security.txt" "Expires: 2025-01-02T23:59:59Z"
+}
+
+test_verbose_mode_logs_no_change() {
+  local tmp
+  tmp="$(make_tmp)"
+  mkdir -p "${tmp}/site/.well-known"
+
+  cat <<'TXT' > "${tmp}/site/.well-known/security.txt"
+Expires: 2025-01-02T23:59:59Z
+TXT
+
+  run_and_capture env \
+    CURRENT_DATE=2025-01-01 \
+    VERBOSE=true \
+    "${UPDATE_SECURITYTXT_EXPIRES}" \
+    --targets "${tmp}" \
+    --expires-days 1
+
+  assert_equal "${CAPTURED_STATUS}" "0"
+  assert_str_contains "${CAPTURED_OUTPUT}" "Mode: dry-run=false, verbose=true"
+  assert_str_contains "${CAPTURED_OUTPUT}" "No change:"
+}
+
 test_multiline_targets_and_exclude_paths() {
   local tmp
   local targets
@@ -255,6 +299,29 @@ TXT
   assert_contains "${tmp}/site-b/.well-known/security.txt" "Expires: 2025-01-03T23:59:59Z"
   assert_contains "${tmp}/skip-a/.well-known/security.txt" "Expires: 2024-12-01T23:59:59Z"
   assert_not_contains "${tmp}/skip-a/.well-known/security.txt" "Expires: 2025-01-03T23:59:59Z"
+}
+
+test_non_empty_dry_run_env_enables_mode() {
+  local tmp
+  tmp="$(make_tmp)"
+  mkdir -p "${tmp}/site/.well-known"
+
+  cat <<'TXT' > "${tmp}/site/.well-known/security.txt"
+Expires: 2024-12-01T23:59:59Z
+TXT
+
+  run_and_capture env \
+    CURRENT_DATE=2025-01-01 \
+    DRY_RUN=maybe \
+    "${UPDATE_SECURITYTXT_EXPIRES}" \
+    --targets "${tmp}" \
+    --expires-days 1
+
+  assert_equal "${CAPTURED_STATUS}" "0"
+  assert_str_contains "${CAPTURED_OUTPUT}" "Mode: dry-run=true, verbose=false"
+  assert_str_contains "${CAPTURED_OUTPUT}" "[DRY-RUN] Would update"
+  assert_contains "${tmp}/site/.well-known/security.txt" "Expires: 2024-12-01T23:59:59Z"
+  assert_not_contains "${tmp}/site/.well-known/security.txt" "Expires: 2025-01-02T23:59:59Z"
 }
 
 test_no_targets_whitespace() {
@@ -308,7 +375,10 @@ main() {
   run_test "updates only .well-known/security.txt" test_updates_only_well_known_securitytxt
   run_test "exclude paths relative" test_exclude_paths_relative
   run_test "exclude paths absolute" test_exclude_paths_absolute
+  run_test "dry-run does not modify files" test_dry_run_does_not_modify_files
+  run_test "verbose mode logs no change" test_verbose_mode_logs_no_change
   run_test "multiline targets and exclude paths" test_multiline_targets_and_exclude_paths
+  run_test "non-empty dry-run env enables mode" test_non_empty_dry_run_env_enables_mode
   run_test "no targets whitespace" test_no_targets_whitespace
   run_test "no valid target dirs" test_no_valid_target_dirs
   run_test "cli unknown option" test_cli_unknown_option
