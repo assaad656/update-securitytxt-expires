@@ -1,10 +1,10 @@
 # Update security.txt Expires GitHub Action
 
-[![Marketplace](https://img.shields.io/badge/GitHub%20Marketplace-blue?logo=github)](https://github.com/marketplace/actions/update-securitytxt-expires)
-[![GitHub release](https://img.shields.io/github/v/release/octivi/update-securitytxt-expires?sort=semver)](https://github.com/octivi/update-securitytxt-expires/releases)
-[![license](https://img.shields.io/github/license/octivi/update-securitytxt-expires)](https://choosealicense.com/licenses/mit/)
+[![GitHub Marketplace](https://img.shields.io/badge/GitHub%20Marketplace-blue?logo=github)](https://github.com/marketplace/actions/update-securitytxt-expires)
+[![GitHub Releases](https://img.shields.io/github/v/release/octivi/update-securitytxt-expires?sort=semver)](https://github.com/octivi/update-securitytxt-expires/releases)
+[![License: MIT](https://img.shields.io/github/license/octivi/update-copyright-year)](https://choosealicense.com/licenses/mit/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org/)
-[![semver](https://img.shields.io/badge/SemVer-2.0.0-blue)](https://semver.org/spec/v2.0.0.html)
+[![Semantic Versioning](https://img.shields.io/badge/SemVer-2.0.0-blue)](https://semver.org/spec/v2.0.0.html)
 
 This GitHub Action updates the Expires field in `security.txt` files to a future date so your
 published security contact metadata stays current. The `security.txt` file is published at
