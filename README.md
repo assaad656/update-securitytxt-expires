@@ -159,6 +159,7 @@ If you are interested in other GitHub Actions we build, see:
 
 - [`octivi/update-copyright-year`](https://github.com/octivi/update-copyright-year) - Updates the copyright year in file headers across your repository
 - [`octivi/cloudflare-cache-purge`](https://github.com/octivi/cloudflare-cache-purge) - Purges Cloudflare cache via Cloudflare API
+- [`octivi/release-notes-from-changelog`](https://github.com/octivi/release-notes-from-changelog) - Extracts Release Notes from Changelog
 
 ## Maintainers and contributors
 
