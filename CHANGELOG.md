@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 2026-02-18
+## [1.1.0] - 2026-02-19
 
 ### Added
 
@@ -13,5 +13,5 @@
 
 - Add the initial GitHub Action for updating `security.txt` expiration dates ([`7b310ee`](https://github.com/octivi/update-securitytxt-expires/commit/7b310ee)) (Marcin Engelmann)
 
-[Unreleased]: https://github.com/octivi/update-securitytxt-expires/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/octivi/update-securitytxt-expires/releases/tag/v1.1.0
 [1.0.0]: https://github.com/octivi/update-securitytxt-expires/releases/tag/v1.0.0
