@@ -14,6 +14,7 @@
 # Update the Expires field in `security.txt` files to a future date so your published security
 # contact metadata stays current.
 
+# >>> OBB:BEGIN variant=header
 # Octivi Bash Boilerplate (OBB) Header
 # Part of Octivi Bash Boilerplate https://github.com/octivi/bash-boilerplate
 ################################################################################
@@ -34,6 +35,7 @@ readonly __my_args
 # Set IFS to just newline and tab
 IFS=$'\n\t'
 ################################################################################
+# <<< OBB:END
 
 is_github_actions=false
 if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
