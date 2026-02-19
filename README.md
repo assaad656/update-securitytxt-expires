@@ -37,19 +37,19 @@ value fresh, so security contact metadata does not become stale.
 
 ## Getting started
 
-1) Add the action to your workflow (see "Example workflow" below).
-2) Optionally set `targets`, `exclude_paths` and `expires_days`.
-3) Run the workflow and review changes (optionally create a PR in your workflow).
+1. Add the action to your workflow (see "Example workflow" below).
+2. Optionally set `targets`, `exclude_paths` and `expires_days`.
+3. Run the workflow and review changes (optionally create a PR in your workflow).
 
 ## Inputs
 
-| Input | Description | Required | Default |
-| --- | --- | --- | --- |
-| `targets` | Space-, comma- or newline-separated directories to scan | No | `"."` |
-| `exclude_paths` | Space-, comma- or newline-separated paths to exclude | No | `""` |
-| `expires_days` | Number of days to add to current date | No | `"180"` |
-| `dry_run` | If `true`, print planned changes without modifying files | No | `"false"` |
-| `verbose` | If `true`, print detailed logs | No | `"false"` |
+| Input           | Description                                              | Required | Default   |
+| --------------- | -------------------------------------------------------- | -------- | --------- |
+| `targets`       | Space-, comma- or newline-separated directories to scan  | No       | `"."`     |
+| `exclude_paths` | Space-, comma- or newline-separated paths to exclude     | No       | `""`      |
+| `expires_days`  | Number of days to add to current date                    | No       | `"180"`   |
+| `dry_run`       | If `true`, print planned changes without modifying files | No       | `"false"` |
+| `verbose`       | If `true`, print detailed logs                           | No       | `"false"` |
 
 ## CLI usage
 
